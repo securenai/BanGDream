@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-//const puppeteer = require('puppeteer');
+const CryptoJS = require('crypto-js');
 const { prefix, token, image} = require('./config.json');
 const client = new Discord.Client();
 
@@ -55,8 +55,10 @@ client.on('message', message => {
 		}
 	}
 });
-
-client.login(token);
+console.log("hello");
+const bytes  = CryptoJS.AES.decrypt(token.toString(), 'secret key 123');
+const t = bytes.toString(CryptoJS.enc.Utf8);
+client.login(t);
 
 /** functions **/
 //color,title,url,author,desc,thumb,srcTxt
