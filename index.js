@@ -68,6 +68,16 @@ client.on('message', message => {
 	}
 });
 console.log("hello");
+
+const express= require('express');
+const app = express();
+
+const PORT = process.env.PORT || 3000;
+console.log("listen");
+app.listen(PORT, () => {
+    console.log(`Our app is running on port ${ PORT }`);
+});
+
 const bytes = CryptoJS.AES.decrypt(token.toString(), 'secret key 123');
 const t = bytes.toString(CryptoJS.enc.Utf8);
 client.login(t);
