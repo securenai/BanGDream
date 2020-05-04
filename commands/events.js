@@ -1,45 +1,73 @@
 const fs = require('fs');
 const Discord = require('discord.js');
-/**
- * curr = 1 , next = 2
- * EN = 1 , JP = 2 , TW = 3, KR = 4
- * 
- **/
+
 module.exports = {
     name: 'event',
     description: 'event!',
     execute(message, args) {
-        if (args[1] === 'curr' || args[1] === 'next') {
-            let region = 'EN';
-            if (args[2] === 'JP') {
-                region = 'JP';
-            } else if (args[2] === 'TW') {
-                region = 'TW';
-            } else if (args[2] === 'KR') {
-                region = 'KR';
-            } else if (args[2] === 'EN' || args[2] === ''){
-            }
-            try {
-                // get json file from local pc
-                const data = fs.readFileSync('./data/events/' + region.toUpperCase() + '/' + args[1] + '/details.json', 'utf8')
-                // convert json to object literal
-                const obj = JSON.parse(data);
-                // use object to pass on to embeded content
-                showEmbed(message, obj);
-            } catch (err) {
-                console.error(err);
-            }
+        if(typeof args[1] === "undefined"){
+            console.log("hi");
+            message.channel.send("did not specify region(en、jp、tw、kr)");
+        }else{
+            const arg1 = args[1].toUpperCase();
+            let arg2 = args[2];
+     
+             if (arg1 === 'EN' || arg1 === 'JP' || arg1 === 'TW' || arg1 === 'KR') {
+                 let region = 'EN';
+                 if (arg1 === 'JP') {
+                     region = 'JP';
+                 } else if (arg1 === 'TW') {
+                     region = 'TW';
+                 } else if (arg1 === 'KR') {
+                     region = 'KR';
+                 }
+                 if(arg2 === 'curr' || arg2 === 'next' || typeof arg2 === "undefined"){
+                     if(typeof arg2 === "undefined"){
+                         arg2 = 'curr';
+                     }
+                     try {
+                         console.log(region.toUpperCase());
+         
+                         console.log(args[1]);
+         
+                         // get json file from local pc
+                         const data = fs.readFileSync('./data/events/' + region.toUpperCase() + '/' + arg2 + '/details.json', 'utf8')
+                         // convert json to object literal
+                         const obj = JSON.parse(data);
+                         // use object to pass on to embeded content
+                         const countdown = calcCountDown(arg2,obj['startDate'],obj['endDate']);
+                         showEmbed(message, obj, countdown);
+                     } catch (err) {
+                        message.channel.send("sorry, your request could not be found...");
+                        console.error(err);
+                     }
+                 }else{
+                     message.channel.send(args[2]+" <== this argument doesn't exist");
+                 }
+             }else{
+                 message.channel.send(args[1]+" <== this argument doesn't exist or you forgot to type region first");
+             }
         }
     },
 };
 
-function showEmbed(message, obj) {
+function showEmbed(message, obj, countdown) {
     //const attachment = new Discord.Attachment('./data/events/2020-04-30/77/img/banner_event77.png', 'banner_event77.png');
+    let color="#C0C0C0";
+    if(obj['attribute'].substring(0,2) === 'Po'){
+        color="#FF345A";
+    }else if(obj['attribute'].substring(0,2) === 'Pu'){
+        color="#44C527";
+    }else if(obj['attribute'].substring(0,2) === 'Ha'){
+        color="#FF6600";
+    }else if(obj['attribute'].substring(0,2) === 'Co'){
+        color="#4057E3";
+    }
     const exampleEmbed = new Discord.MessageEmbed()
-        .setColor('#C0C0C0')
+        .setColor(color)
         .setTitle(obj['title'])
         .setURL(obj['url'])
-        .setDescription(obj['desc'])
+        .setDescription(countdown)
         .addFields(
             { name: 'Type', value: obj['type'], inline: true },
             { name: 'Start Date', value: obj['startDate'], inline: true },
@@ -52,4 +80,45 @@ function showEmbed(message, obj) {
         //.attachFiles(['./data/events/2020-04-30/77/img/banner_event77.png', './data/events/2020-04-30/77/img/attribute.png'])
         .setImage('attachment://' + obj['imgUrl'].substring(obj['imgUrl'].lastIndexOf("/") + 1));
     message.channel.send(exampleEmbed);
+}
+
+function calcCountDown(state,startDate,endDateText){
+    let date1="";
+    let region="";
+    let startOrEnd="";
+    if(state === 'curr'){
+        const arr = endDateText.split(' ');
+        arr[1] = arr[1].replace(/\D/g,'');
+        arr[2] = arr[2].substring(0,4);
+        if(arr[4] === 'PM'){
+            const tmp=arr[3].split(':');
+            arr[3] = parseInt(tmp[0])+12+':'+tmp[1];
+        }
+        const date1Str=`${arr[0]} ${arr[1]}, ${arr[2]} ${arr[3]}`;
+        date1 = new Date(date1Str);
+        region = arr[5];
+        startOrEnd = "Ends";
+    }else if (state === 'next'){
+        const arr = startDate.split(' ');
+        arr[1] = arr[1].replace(/\D/g,'');
+        arr[2] = arr[2].substring(0,4);
+        if(arr[4] === 'PM'){
+            const tmp=arr[3].split(':');
+            arr[3] = parseInt(tmp[0])+12+':'+tmp[1];
+        }
+        const date1Str=`${arr[0]} ${arr[1]}, ${arr[2]} ${arr[3]}`;
+        date1 = new Date(date1Str);
+        region = arr[5];
+        startOrEnd = "Starts";
+    }
+    const date2 = Date.now();
+    //const date2 = new Date('May 12, 2020 14:23');
+    if(date1 - date2 <= 0){
+        return "The current event has Ended"
+    }
+    const res = Math.abs(date1 - date2) / 1000;
+    const days = Math.floor(res / 86400);
+    const hours = Math.floor(res / 3600) % 24;
+    const minutes = Math.floor(res / 60) % 60;
+    return startOrEnd + " in " + days + " days "+ hours + " hours " + minutes + " minutes " + region;
 }

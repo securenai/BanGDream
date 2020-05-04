@@ -1,12 +1,1 @@
-{
-    "title":"The Mole Person☆ Transport Mission!",
-    "url":"https://bestdori.com/info/events/77/",
-    "desc":"Ends in 10 hrs 48 min 41 sec (EN)",
-    "type":"VS Live",
-    "startDate":"Apr 30th 2020, 9:00 AM (EN)",
-    "endDate":"May 8th 2020, 2:59 PM (EN)",
-    "attribute":"PURE +20%",
-    "characters":"[Aya] [Hina] [Chisato] [Eve] [Maya] +10%",
-    "parameter":"Visual +50%",
-    "imgUrl":"./data/events/EN/curr/banner.png"
-}
+{"title":"The Mole Person☆ Transport Mission!","url":"https://bestdori.com/info/events/77/","desc":"","type":"VS Live","startDate":"Apr 30th 2020, 9:00 AM (EN)","endDate":"May 8th 2020, 2:59 PM (EN)","attribute":"Pure +20%","characters":"[Aya][Hina][Chisato][Maya][Eve] +10%","parameter":"Visual +50%","imgUrl":"./data/events/EN/curr/banner.png"}

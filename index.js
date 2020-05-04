@@ -84,26 +84,26 @@ client.login(t);
 
 /** functions **/
 //color,title,url,author,desc,thumb,srcTxt
-function showEmbedType1(message) {
-	//const attachment = new Discord.Attachment('./data/events/2020-04/77/img/banner_event77.png', 'banner_event77.png');
-	const exampleEmbed = new Discord.MessageEmbed()
-		.setColor('#FFFF00')
-		.setTitle('The Mole Person☆ Transport Mission!')
-		.setURL('https://bestdori.com/info/events/77/')
-		.setAuthor('KOKORO TSURUMAKI 弦巻 こころ CV.伊藤 美来', 'https://i.imgur.com/SPz6Y6J.png', 'https://discord.js.org')
-		.setDescription('人の笑顔をらわれない様々なアイディアを実現させてきた。')
-		.addFields(
-			{ name: 'Regular field title', value: 'Some value here <h6>hello</h6>' },
-			{ name: '\u200B', value: '\u200B' },
-			{ name: 'Inline field title', value: 'Some value here', inline: true },
-			{ name: 'Inline field title', value: 'Some value here', inline: true },
-		)
-		.addField('Inline field title', 'Some value here', true)
-		.attachFiles(['./data/events/2020-04/77/img/banner_event77.png', './data/events/2020-04/77/img/attribute.png'])
-		.setThumbnail('attachment://attribute.png')
-		.setImage('attachment://banner_event77.png')
-		.setTimestamp()
-		.setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');
+// function showEmbedType1(message) {
+// 	//const attachment = new Discord.Attachment('./data/events/2020-04/77/img/banner_event77.png', 'banner_event77.png');
+// 	const exampleEmbed = new Discord.MessageEmbed()
+// 		.setColor('#FFFF00')
+// 		.setTitle('The Mole Person☆ Transport Mission!')
+// 		.setURL('https://bestdori.com/info/events/77/')
+// 		.setAuthor('KOKORO TSURUMAKI 弦巻 こころ CV.伊藤 美来', 'https://i.imgur.com/SPz6Y6J.png', 'https://discord.js.org')
+// 		.setDescription('人の笑顔をらわれない様々なアイディアを実現させてきた。')
+// 		.addFields(
+// 			{ name: 'Regular field title', value: 'Some value here <h6>hello</h6>' },
+// 			{ name: '\u200B', value: '\u200B' },
+// 			{ name: 'Inline field title', value: 'Some value here', inline: true },
+// 			{ name: 'Inline field title', value: 'Some value here', inline: true },
+// 		)
+// 		.addField('Inline field title', 'Some value here', true)
+// 		.attachFiles(['./data/events/2020-04/77/img/banner_event77.png', './data/events/2020-04/77/img/attribute.png'])
+// 		.setThumbnail('attachment://attribute.png')
+// 		.setImage('attachment://banner_event77.png')
+// 		.setTimestamp()
+// 		.setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');
 
-	message.channel.send(exampleEmbed);
-}
+// 	message.channel.send(exampleEmbed);
+// }
