@@ -28,18 +28,16 @@ client.on('message', message => {
 			console.log('Ready222222');
 			if (!args.length) {
 				return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
-			} else if (args[0] === 'kokoro') {
-				console.log('Ready2!');
+			} else if (args[0] === 'help') {
+				console.log('Ready help!');
+				client.commands.get('help').execute(message, args);
 				//message.channel.send(`Command name: ${command}\nArguments: ${args}`);
 			} else if (args[0] === 'event') {
 				console.log('Ready event');
 				client.commands.get('event').execute(message, args);
-				// if (args[1] === 'next') {
-				// 	showEmbedType2(message);
-				// }
-
-			} else {
-				message.channel.send('sorry, not coded yet...');
+			} else if (args[0] === 'char') {
+				console.log('Ready char');
+				client.commands.get('char').execute(message, args);
 			}
 		}
 
