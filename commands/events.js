@@ -105,7 +105,7 @@ function calcCountDown(state, startDate, endDate, port) {
     let date2 = Date.now();
     if(port != '3000'){
         console.log(date2);
-        date2+=28830000;
+        date2+=28770000;
     }
     //const date2 = new Date('May 12, 2020 14:23');
     if (date1 - date2 <= 0) {
