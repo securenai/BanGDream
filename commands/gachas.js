@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'gacha',
     description: 'gacha!',
-    execute(message, args) {
+    execute(message, args, port) {
         if (typeof args[1] === "undefined") {
             message.channel.send("did not specify region(en、jp、tw、kr)");
         } else {
@@ -23,7 +23,7 @@ module.exports = {
                     for (let i = 0; i < files.length; i++) {
                         const data = fs.readFileSync('./data/gachas/' + region.toUpperCase() + '/' + files[i] + '/' + files[i] + '_details.json', 'utf8');
                         const obj = JSON.parse(data);
-                        const countdown = calcCountDown(obj['closeDate']);
+                        const countdown = calcCountDown(obj['closeDate'],port);
                         showEmbed(message, obj, countdown);
                     }
                 } catch (err) {
@@ -60,7 +60,7 @@ function showEmbed(message, obj, countdown) {
     message.channel.send(exampleEmbed);
 }
 
-function calcCountDown(closeDate) {
+function calcCountDown(closeDate,port) {
     let date1 = "";
     let region = "";
     const arr = closeDate.split(' ');

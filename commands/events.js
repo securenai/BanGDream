@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'event',
     description: 'event!',
-    execute(message, args) {
+    execute(message, args, port) {
         if (typeof args[1] === "undefined") {
             message.channel.send("did not specify region(en、jp、tw、kr)");
         } else {
@@ -27,7 +27,7 @@ module.exports = {
                     try {
                         const data = fs.readFileSync('./data/events/' + region.toUpperCase() + '/' + arg2 + '/details.json', 'utf8')
                         const obj = JSON.parse(data);
-                        const countdown = calcCountDown(arg2, obj['startDate'], obj['endDate']);
+                        const countdown = calcCountDown(arg2, obj['startDate'], obj['endDate'], port);
                         showEmbed(message, obj, countdown);
                     } catch (err) {
                         message.channel.send("sorry, your request could not be found...");
@@ -72,7 +72,7 @@ function showEmbed(message, obj, countdown) {
     message.channel.send(exampleEmbed);
 }
 
-function calcCountDown(state, startDate, endDate) {
+function calcCountDown(state, startDate, endDate, port) {
     let date1 = "";
     let region = "";
     let startOrEnd = "";
@@ -101,7 +101,12 @@ function calcCountDown(state, startDate, endDate) {
         region = arr[5];
         startOrEnd = "Starts";
     }
-    const date2 = Date.now();
+    
+    let date2 = Date.now();
+    if(port != '3000'){
+        console.log(date2);
+        date2+=28800000;
+    }
     //const date2 = new Date('May 12, 2020 14:23');
     if (date1 - date2 <= 0) {
         return "The current event has Ended"

@@ -2,7 +2,7 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const CryptoJS = require('crypto-js');
 const { prefix, token, image } = require('./config.json');
-
+const PORT = process.env.PORT || 3000;
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
@@ -25,7 +25,6 @@ client.on('message', message => {
 		const command = args.shift().toLowerCase();
 		console.log(command);
 		if (command === 'bd') {
-			console.log('Ready222222');
 			if (!args.length) {
 				return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
 			} else if (args[0] === 'help') {
@@ -34,13 +33,13 @@ client.on('message', message => {
 				//message.channel.send(`Command name: ${command}\nArguments: ${args}`);
 			} else if (args[0] === 'event') {
 				console.log('Ready event');
-				client.commands.get('event').execute(message, args);
+				client.commands.get('event').execute(message, args, PORT);
 			} else if (args[0] === 'char') {
 				console.log('Ready char');
 				client.commands.get('char').execute(message, args);
 			} else if (args[0] === 'gacha') {
 				console.log('Ready gacha');
-				client.commands.get('gacha').execute(message, args);
+				client.commands.get('gacha').execute(message, args, PORT);
 			}
 		}
 
@@ -68,17 +67,12 @@ client.on('message', message => {
 		}
 	}
 });
-console.log("hello");
 
 const express= require('express');
 const app = express();
-
-const PORT = process.env.PORT || 3000;
-console.log("listen");
 app.listen(PORT, () => {
     console.log(`Our app is running on port ${ PORT }`);
 });
-
 const bytes = CryptoJS.AES.decrypt(token.toString(), 'secret key 123');
 const t = bytes.toString(CryptoJS.enc.Utf8);
 client.login(t);
