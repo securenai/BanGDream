@@ -6,7 +6,7 @@ module.exports = {
     description: 'event!',
     execute(message, args, port) {
         if (typeof args[1] === "undefined") {
-            message.channel.send("did not specify region(en、jp、tw、kr)");
+            message.channel.send("did not specify region(en、jp");
         } else {
             const arg1 = args[1].toUpperCase();
             let arg2 = args[2];
@@ -108,8 +108,13 @@ function calcCountDown(state, startDate, endDate, port) {
         date2+=28740000;
     }
     //const date2 = new Date('May 12, 2020 14:23');
+    let memo ="";
+    console.log(region);
     if (date1 - date2 <= 0) {
-        return "The current event has Ended"
+        if(region != '(EN)' || region != '(JP)'){
+            memo =" in Japan";
+        }
+        return "The current event has Ended" + memo
     }
     const res = Math.abs(date1 - date2) / 1000;
     const days = Math.floor(res / 86400);

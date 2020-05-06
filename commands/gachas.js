@@ -73,7 +73,11 @@ function calcCountDown(closeDate,port) {
     const date1Str = `${arr[0]} ${arr[1]}, ${arr[2]} ${arr[3]}`;
     date1 = new Date(date1Str);
     region = arr[5];
-    const date2 = Date.now();
+    let date2 = Date.now();
+    if(port != '3000'){
+        console.log(date2);
+        date2+=28740000;
+    }
     //const date2 = new Date('May 12, 2020 14:23');
     if (date1 - date2 <= 0) {
         return "This gacha has Ended"
