@@ -38,6 +38,9 @@ client.on('message', message => {
 			} else if (args[0] === 'char') {
 				console.log('Ready char');
 				client.commands.get('char').execute(message, args);
+			} else if (args[0] === 'gacha') {
+				console.log('Ready gacha');
+				client.commands.get('gacha').execute(message, args);
 			}
 		}
 

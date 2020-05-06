@@ -6,7 +6,6 @@ module.exports = {
     description: 'char!',
     execute(message, args) {
         if(typeof args[1] === "undefined"){
-            console.log("hi");
             message.channel.send("you didn't tell me the character's name");
         }else{
             const arg1 = args[1].toLowerCase();
@@ -25,18 +24,13 @@ module.exports = {
                 }
              }
              if (valid === true) {
-                // get json file from local pc
                 const data = fs.readFileSync('./data/characters/' + i + '/details.json', 'utf8')
-                // convert json to object literal
                 const obj = JSON.parse(data);
-                // use object to pass on to embeded content
-                //console.log(obj);
                 showEmbed(message, obj);
              }else{
                  message.channel.send(args[1]+" <== character not found...");
              }
         }
-        //showEmbed(message,obj);
     },
 };
 
@@ -75,9 +69,6 @@ function showEmbed(message,obj) {
             { name: 'Hobby', value: obj['hobby'], inline: true },
         )
         .attachFiles([obj['imgUrl']])
-        //.attachFiles(['./data/characters/01_Kasumi/img_01.jpg'])
-        //.attachFiles(['./data/help/help.png', './data/help/thumbnail.png'])
         .setThumbnail('attachment://' + 'img.jpg')
-        //.setImage('attachment://' + 'img.jpg');
     message.channel.send(exampleEmbed);
 }
