@@ -4,7 +4,6 @@ module.exports = {
     name: 'help',
     description: 'help!',
     execute(message) {
-        console.log("help is here");
         showEmbed(message);
     },
 };

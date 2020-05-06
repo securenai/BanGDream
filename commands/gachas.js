@@ -23,7 +23,7 @@ module.exports = {
                     for (let i = 0; i < files.length; i++) {
                         const data = fs.readFileSync('./data/gachas/' + region.toUpperCase() + '/' + files[i] + '/' + files[i] + '_details.json', 'utf8');
                         const obj = JSON.parse(data);
-                        const countdown = calcCountDown(obj['closeDate'],port);
+                        const countdown = calcCountDown(obj['closeDate'], port);
                         showEmbed(message, obj, countdown);
                     }
                 } catch (err) {
@@ -60,7 +60,7 @@ function showEmbed(message, obj, countdown) {
     message.channel.send(exampleEmbed);
 }
 
-function calcCountDown(closeDate,port) {
+function calcCountDown(closeDate, port) {
     let date1 = "";
     let region = "";
     const arr = closeDate.split(' ');
@@ -74,9 +74,8 @@ function calcCountDown(closeDate,port) {
     date1 = new Date(date1Str);
     region = arr[5];
     let date2 = Date.now();
-    if(port != '3000'){
-        console.log(date2);
-        date2+=28740000;
+    if (port != '3000') {
+        date2 += 28740000;
     }
     //const date2 = new Date('May 12, 2020 14:23');
     if (date1 - date2 <= 0) {

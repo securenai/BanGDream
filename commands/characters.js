@@ -5,49 +5,49 @@ module.exports = {
     name: 'char',
     description: 'char!',
     execute(message, args) {
-        if(typeof args[1] === "undefined"){
+        if (typeof args[1] === "undefined") {
             message.channel.send("you didn't tell me the character's name");
-        }else{
+        } else {
             const arg1 = args[1].toLowerCase();
-             const list=['kasumi','tae','rimi','saya','arisa',
-                         'ran','moca','himari','tomoe','tsugumi',
-                         'kokoro','kaoru','hagumi','kanon','misaki',
-                         'aya','hina','chisato','maya','eve',
-                         'yukina','sayo','lisa','ako','rinko',
-                         'mashiro','toko','nanami','tsukushi','rui',];
-             let valid = false;
-             let i=1;
-             for(i;i<list.length+1;i++){
-                if(arg1 === list[i-1]){
+            const list = ['kasumi', 'tae', 'rimi', 'saya', 'arisa',
+                'ran', 'moca', 'himari', 'tomoe', 'tsugumi',
+                'kokoro', 'kaoru', 'hagumi', 'kanon', 'misaki',
+                'aya', 'hina', 'chisato', 'maya', 'eve',
+                'yukina', 'sayo', 'lisa', 'ako', 'rinko',
+                'mashiro', 'toko', 'nanami', 'tsukushi', 'rui',];
+            let valid = false;
+            let i = 1;
+            for (i; i < list.length + 1; i++) {
+                if (arg1 === list[i - 1]) {
                     valid = true;
                     break;
                 }
-             }
-             if (valid === true) {
+            }
+            if (valid === true) {
                 const data = fs.readFileSync('./data/characters/' + i + '/details.json', 'utf8')
                 const obj = JSON.parse(data);
                 showEmbed(message, obj);
-             }else{
-                 message.channel.send(args[1]+" <== character not found...");
-             }
+            } else {
+                message.channel.send(args[1] + " <== character not found...");
+            }
         }
     },
 };
 
-function showEmbed(message,obj) {
-    let color="#C0C0C0";
-    if(obj['band'].substring(0,2) === 'Po'){
-        color="#E33D90";
-    }else if(obj['band'].substring(0,2) === 'Af'){
-        color="#181314";
-    }else if(obj['band'].substring(0,2) === 'He'){
-        color="#FFDE61";
-    }else if(obj['band'].substring(0,2) === 'Pa'){
-        color="#FF269B";
-    }else if(obj['band'].substring(0,2) === 'Ro'){
-        color="#6870EC";
-    }else if(obj['band'].substring(0,2) === 'Mo'){
-        color="#16C6FF";
+function showEmbed(message, obj) {
+    let color = "#C0C0C0";
+    if (obj['band'].substring(0, 2) === 'Po') {
+        color = "#E33D90";
+    } else if (obj['band'].substring(0, 2) === 'Af') {
+        color = "#181314";
+    } else if (obj['band'].substring(0, 2) === 'He') {
+        color = "#FFDE61";
+    } else if (obj['band'].substring(0, 2) === 'Pa') {
+        color = "#FF269B";
+    } else if (obj['band'].substring(0, 2) === 'Ro') {
+        color = "#6870EC";
+    } else if (obj['band'].substring(0, 2) === 'Mo') {
+        color = "#16C6FF";
     }
     const exampleEmbed = new Discord.MessageEmbed()
         .setColor(color)
