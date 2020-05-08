@@ -109,9 +109,9 @@ function calcCountDown(state, startDate, endDate, port) {
     //const date2 = new Date('May 12, 2020 14:23');
     let memo = "";
     if (date1 - date2 <= 0) {
-        if (region != '(EN)' || region != '(JP)') {
-            memo = " in Japan";
-        }
+        // if (region != '(EN)' || region != '(JP)') {
+        //     memo = " in Japan";
+        // }
         return "The current event has Ended" + memo
     }
     const res = Math.abs(date1 - date2) / 1000;
