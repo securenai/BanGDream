@@ -14,7 +14,7 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', () => {
-	client.user.setActivity("!bd help");
+	client.user.setActivity("!bd help ");
 	console.log('Ready!');
 });
 
