@@ -1,12 +1,14 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const CryptoJS = require('crypto-js');
-const { prefix, token } = require('./config.json');
+const {prefix, token} = require('./config.json');
 const PORT = process.env.PORT || 3000;
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const commandFiles = fs
+	.readdirSync('./commands')
+	.filter((file) => file.endsWith('.js'));
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
@@ -14,11 +16,11 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', () => {
-	client.user.setActivity("!bd help ");
+	client.user.setActivity('!bd help ');
 	console.log('Ready!');
 });
 
-client.on('message', message => {
+client.on('message', (message) => {
 	if (!message.content.startsWith(prefix) || message.author.bot) {
 		return;
 	} else {
@@ -26,7 +28,9 @@ client.on('message', message => {
 		const command = args.shift().toLowerCase();
 		if (command === 'bd') {
 			if (!args.length) {
-				return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
+				return message.channel.send(
+					`You didn't provide any arguments, ${message.author}!`
+				);
 			} else if (args[0] === 'help') {
 				client.commands.get('help').execute(message, args);
 			} else if (args[0] === 'event') {
@@ -43,8 +47,11 @@ client.on('message', message => {
 const express = require('express');
 const app = express();
 app.listen(PORT, () => {
-	console.log(`Our app is running on port ${PORT}`);
+	console.log(`our app is running on port ${PORT}`);
 });
-const bytes = CryptoJS.AES.decrypt(token.toString(), 'secret key 123');
+const bytes = CryptoJS.AES.decrypt(
+	token.toString(),
+	'secret key 123'
+);
 const t = bytes.toString(CryptoJS.enc.Utf8);
 client.login(t);
